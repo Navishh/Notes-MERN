@@ -1,6 +1,10 @@
-"use client";
+import Navbar from "../../components/Navbar/Navbar";
 const Home = () => {
-  return <div>hosdfsdfsdfsdfsdfme</div>;
+  return (
+    <>
+      <Navbar />
+    </>
+  );
 };
 
 export default Home;
