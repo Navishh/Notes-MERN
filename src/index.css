@@ -21,6 +21,10 @@
   }
 
   .btn-primary {
-    @apply w-full h-full text-sm bg-primary text-white p-2 rounded my-1 hover:bg-blue-600;
+    @apply w-full h-full p-2 my-1 text-sm text-white rounded bg-primary hover:bg-blue-600;
+  }
+
+  .icon-btn {
+    @apply text-xl cursor-pointer text-slate-300 hover:text-primary;
   }
 }
