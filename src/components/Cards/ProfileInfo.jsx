@@ -1,6 +1,6 @@
-import React from "react";
 import { getInitials } from "../../utils/helper";
 
+// eslint-disable-next-line react/prop-types
 const ProfileInfo = ({ onLogout }) => {
   return (
     <div className="flex items-center gap-3 ">
