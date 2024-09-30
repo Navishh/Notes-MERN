@@ -27,4 +27,8 @@
   .icon-btn {
     @apply text-xl cursor-pointer text-slate-300 hover:text-primary;
   }
+
+  .input-label {
+    @apply text-xs text-slate-400;
+  }
 }
