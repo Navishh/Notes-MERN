@@ -1,14 +1,57 @@
+import { useState } from "react";
+import { MdClose } from "react-icons/md";
 import TagInput from "../../components/Input/TagInput";
 
-const AddEditNotes = () => {
+// eslint-disable-next-line react/prop-types, no-unused-vars
+const AddEditNotes = ({ noteData, type, onClose }) => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [tags, setTags] = useState("");
+
+  const [error, setError] = useState(null);
+
+  const handleAddNote = () => {
+    // Add new note
+    const addNewNote = async () => {};
+
+    //  Edit the note
+    const editNote = async () => {};
+
+    if (!title) {
+      setError("Title is required");
+      return;
+    }
+
+    if (!content) {
+      setError("Content is required");
+      return;
+    }
+
+    setError("");
+
+    if (type === "edit") {
+      editNote();
+    } else {
+      addNewNote();
+    }
+  };
+
   return (
-    <div>
+    <div className="relative">
+      <button
+        className="absolute flex items-center justify-center w-10 h-10 rounded-full -top-3 -right-3 hover:bg-slate-50"
+        onClick={onClose}
+      >
+        <MdClose className="text-xl text-slate-400" />
+      </button>
       <div className="flex flex-col gap-2">
         <label className="input-label">TITLE</label>
         <input
           type="text"
           className="text-2xl outline-none text-slate-950"
           placeholder="Go to the gym"
+          value={title}
+          onChange={({ target }) => setTitle(target.value)}
         />
       </div>
 
@@ -19,15 +62,22 @@ const AddEditNotes = () => {
           className="p-2 text-sm rounded outline-none text-slate-950 bg-slate-50"
           placeholder="Content"
           rows={10}
+          value={content}
+          onChange={({ target }) => setContent(target.value)}
         />
       </div>
 
       <div className="mt-3">
         <label className="input-label">TAGS</label>
-        <TagInput />
+        <TagInput tags={tags} setTags={setTags} />
       </div>
 
-      <button className="p-3 mt-5 font-medium btn-primary" onClick={() => {}}>
+      {error && <p className="pt-4 text-xs text-red-500">{error}</p>}
+
+      <button
+        className="p-3 mt-5 font-medium btn-primary"
+        onClick={() => handleAddNote}
+      >
         Add
       </button>
     </div>

@@ -62,7 +62,7 @@ const SignIn = () => {
                   to={"/signup"}
                   className="font-medium underline text-primary"
                 >
-                  Log in to your account
+                  Create an account
                 </Link>
               </p>
             </form>
