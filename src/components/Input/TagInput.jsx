@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdClose } from "react-icons/md";
 
 const TagInput = ({ tags, setTags }) => {
   const [inputValue, setInputValue] = useState("");
@@ -22,29 +22,32 @@ const TagInput = ({ tags, setTags }) => {
     }
   };
 
-  // eslint-disable-next-line no-unused-vars
   const handleRemoveTag = (tagToRemove) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
   return (
     <div>
-      {/* {tags?.length > 0 && (
+      {tags?.length > 0 && (
         <div className="flex items-center gap-2 mt-2 wrap">
           {tags.map((tag, index) => (
-            <span key={index} className="">
+            <span
+              key={index}
+              className="flex gap-2 px-3 py-1 text-sm rounded bg-blue-100/60 item-center text-slate-900"
+            >
               # {tag}
-              <button onClick={() => {}}>
+              <button onClick={() => handleRemoveTag(tag)}>
                 <MdClose />
               </button>
             </span>
           ))}
         </div>
-      )} */}
+      )}
 
       <div className="flex items-center gap-4 mt-3">
         <input
           type="text "
+          value={inputValue}
           className="px-3 py-2 text-sm border rounded outline-none bg-tranparent"
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
