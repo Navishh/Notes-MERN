@@ -74,7 +74,7 @@ app.post("/create-account", async (req, res) => {
 });
 
 //Login
-app.post("/login", async (req, res) => {
+app.post("/signin", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email) {
