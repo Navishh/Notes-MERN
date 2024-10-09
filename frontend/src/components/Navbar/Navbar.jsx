@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import ProfileInfo from "../Cards/ProfileInfo";
 import SearchBar from "../SearchBar/SearchBar";
 
-const Navbar = () => {
+// eslint-disable-next-line react/prop-types
+const Navbar = ({ userInfo }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const navigate = useNavigate();
 
   const onLogout = () => {
+    localStorage.clear();
     navigate("/signin");
   };
 
@@ -29,7 +31,7 @@ const Navbar = () => {
         handleSearch={handleSearch}
         onClearSearch={onClearSearch}
       />
-      <ProfileInfo onLogout={onLogout} />
+      <ProfileInfo userInfo={userInfo} onLogout={onLogout} />
     </div>
   );
 };
