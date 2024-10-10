@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { MdClose } from "react-icons/md";
 import TagInput from "../../components/Input/TagInput";
@@ -5,9 +6,9 @@ import axiosInstance from "../../utils/axiosInstance";
 
 // eslint-disable-next-line react/prop-types, no-unused-vars
 const AddEditNotes = ({ noteData, type, getAllNotes, onClose }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [tags, setTags] = useState("");
+  const [title, setTitle] = useState(noteData?.title || "");
+  const [content, setContent] = useState(noteData?.content || "");
+  const [tags, setTags] = useState(noteData?.tags || "");
 
   const [error, setError] = useState(null);
 
@@ -37,7 +38,29 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose }) => {
     };
 
     //  Edit the note
-    const editNote = async () => {};
+    const editNote = async () => {
+      const noteId = noteData._id;
+      try {
+        const response = await axiosInstance.put("/edit-note/" + noteId, {
+          title,
+          content,
+          tags,
+        });
+
+        if (response.data && response.data.note) {
+          getAllNotes();
+          onClose();
+        }
+      } catch (error) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          setError(error.response.data.message);
+        }
+      }
+    };
 
     if (!title) {
       setError("Title is required");
@@ -100,10 +123,24 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose }) => {
         className="p-3 mt-5 font-medium btn-primary"
         onClick={handleAddNote}
       >
-        Add
+        {type === "edit" ? "UPDATE" : "ADD "}
       </button>
     </div>
   );
+};
+AddEditNotes.propTypes = {
+  noteData: PropTypes.shape({
+    _id: PropTypes.string,
+    title: PropTypes.string,
+    content: PropTypes.string,
+    tags: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.string),
+    ]),
+  }),
+  type: PropTypes.string.isRequired,
+  getAllNotes: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default AddEditNotes;
