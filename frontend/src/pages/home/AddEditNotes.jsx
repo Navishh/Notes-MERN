@@ -22,7 +22,8 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose }) => {
         });
 
         if (response.data && response.data.note) {
-          getAllNotes(), onClose();
+          getAllNotes();
+          onClose();
         }
       } catch (error) {
         if (
@@ -97,7 +98,7 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose }) => {
 
       <button
         className="p-3 mt-5 font-medium btn-primary"
-        onClick={() => handleAddNote}
+        onClick={handleAddNote}
       >
         Add
       </button>
