@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { MdClose } from "react-icons/md";
@@ -5,7 +6,13 @@ import TagInput from "../../components/Input/TagInput";
 import axiosInstance from "../../utils/axiosInstance";
 
 // eslint-disable-next-line react/prop-types, no-unused-vars
-const AddEditNotes = ({ noteData, type, getAllNotes, onClose }) => {
+const AddEditNotes = ({
+  noteData,
+  type,
+  getAllNotes,
+  onClose,
+  showToastMessage,
+}) => {
   const [title, setTitle] = useState(noteData?.title || "");
   const [content, setContent] = useState(noteData?.content || "");
   const [tags, setTags] = useState(noteData?.tags || "");
@@ -23,6 +30,7 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose }) => {
         });
 
         if (response.data && response.data.note) {
+          showToastMessage("Note Added Successfully");
           getAllNotes();
           onClose();
         }
@@ -48,6 +56,7 @@ const AddEditNotes = ({ noteData, type, getAllNotes, onClose }) => {
         });
 
         if (response.data && response.data.note) {
+          showToastMessage("Note Updated Successfully");
           getAllNotes();
           onClose();
         }
