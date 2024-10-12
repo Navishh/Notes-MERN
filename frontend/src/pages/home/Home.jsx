@@ -71,6 +71,75 @@ const Home = () => {
     }
   };
 
+  // //Delete all notes
+  // const deleteNotes = async (data) => {
+  //   const noteId = data._id;
+
+  //   try {
+  //     const response = await axiosInstance.delete("/delete-note/" + noteId);
+
+  //     if (response.data && response.data.note) {
+  //       showToastMessage("Note Deleted Successfully", "delete");
+  //       getAllNotes();
+  //     }
+  //   } catch (error) {
+  //     if (
+  //       error.response &&
+  //       error.response.data &&
+  //       error.response.data.message
+  //     ) {
+  //       console.log("An unexpected error occurred. Please try again", error);
+  //     }
+  //   }
+  // };
+
+  // const deleteNotes = async (data) => {
+  //   const noteId = data._id;
+
+  //   try {
+  //     const response = await axiosInstance.delete("/delete-note/" + noteId);
+
+  //     if (response.data && response.data.note) {
+  //       showToastMessage("Note Deleted Successfully", "delete");
+  //       getAllNotes();
+  //     }
+  //   } catch (error) {
+  //     if (
+  //       error.response &&
+  //       error.response.data &&
+  //       error.response.data.message
+  //     ) {
+  //       console.log("An unexpected error occurred. Please try again", error);
+  //     }
+  //   }
+  // };
+
+  const deleteNotes = async (data) => {
+    const noteId = data._id;
+
+    try {
+      const response = await axiosInstance.delete("/delete-note/" + noteId);
+
+      if (response.data && response.data.note) {
+        // Show the success toast message
+        showToastMessage("Note Deleted Successfully", "delete");
+
+        // Update the allNotes state by filtering out the deleted note
+        setAllNotes((prevNotes) =>
+          prevNotes.filter((note) => note._id !== noteId)
+        );
+      }
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        console.log("An unexpected error occurred. Please try again", error);
+      }
+    }
+  };
+
   useEffect(() => {
     getAllNotes();
     getUserInfo();
@@ -93,7 +162,7 @@ const Home = () => {
               tags={item.tags}
               isPinned={item.isPinned}
               onEdit={() => handleEdit(item)}
-              onDelete={() => {}}
+              onDelete={() => deleteNotes(item)}
               onPinNote={() => {}}
             />
           ))}
