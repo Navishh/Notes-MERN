@@ -5,7 +5,6 @@ import { MdClose } from "react-icons/md";
 import TagInput from "../../components/Input/TagInput";
 import axiosInstance from "../../utils/axiosInstance";
 
-// eslint-disable-next-line react/prop-types, no-unused-vars
 const AddEditNotes = ({
   noteData,
   type,
