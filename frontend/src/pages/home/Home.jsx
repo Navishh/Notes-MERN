@@ -71,29 +71,7 @@ const Home = () => {
     }
   };
 
-  // //Delete note
-  // const handleDelete = async (noteId) => {
-  //   try {
-  //     const response = await axiosInstance.delete(`/delete-note/${noteId}`);
-
-  //     if (response.data && response.data.note) {
-  //       showToastMessage("Note Deleted Successfully", "delete");
-
-  //       setAllNotes((prevNotes) =>
-  //         prevNotes.filter((note) => note._id !== noteId)
-  //       );
-  //     }
-  //   } catch (error) {
-  //     if (
-  //       error.response &&
-  //       error.response.data &&
-  //       error.response.data.message
-  //     ) {
-  //       console.log("An unexpected error occurred. Please try again", error);
-  //     }
-  //   }
-  // };
-
+  //Delete note
   const deleteNote = async (data) => {
     const noteId = data._id;
 
@@ -101,13 +79,8 @@ const Home = () => {
       const response = await axiosInstance.delete("/delete-note/" + noteId);
 
       if (response.data && !response.data.error) {
-        showToastMessage("Note Deleted Successfully");
+        showToastMessage("Note Deleted Successfully", "delete");
         getAllNotes();
-
-        // Update the allNotes state by filtering out the deleted note
-        // setAllNotes((prevNotes) =>
-        //   prevNotes.filter((note) => note._id !== noteId)
-        // );
       }
     } catch (error) {
       if (
