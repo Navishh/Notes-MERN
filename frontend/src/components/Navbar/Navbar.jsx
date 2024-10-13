@@ -4,7 +4,7 @@ import ProfileInfo from "../Cards/ProfileInfo";
 import SearchBar from "../SearchBar/SearchBar";
 
 // eslint-disable-next-line react/prop-types
-const Navbar = ({ userInfo, onSearchNote }) => {
+const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ const Navbar = ({ userInfo, onSearchNote }) => {
 
   const onClearSearch = () => {
     setSearchQuery("");
+    handleClearSearch();
   };
 
   return (

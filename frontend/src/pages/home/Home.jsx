@@ -113,6 +113,11 @@ const Home = () => {
     }
   };
 
+  const handleClearSearch = () => {
+    setIsSearch(false);
+    getAllNotes();
+  };
+
   useEffect(() => {
     getAllNotes();
     getUserInfo();
@@ -122,7 +127,11 @@ const Home = () => {
 
   return (
     <>
-      <Navbar userInfo={userInfo} onSearchNote={onSearchNote} />
+      <Navbar
+        userInfo={userInfo}
+        onSearchNote={onSearchNote}
+        handleClearSearch={handleClearSearch}
+      />
 
       <div className="container mx-auto ">
         {allNotes.length > 0 ? (
@@ -143,8 +152,12 @@ const Home = () => {
           </div>
         ) : (
           <EmptyCard
-            imgSrc="/addnote.png"
-            message="Keep in track with all the important occassions! Start creating your first note by clicking on the 'Add' button"
+            imgSrc={isSearch ? "nodata.png" : "/addnote.png"}
+            message={
+              isSearch
+                ? "Oops! No notes founds for your search"
+                : "Keep in track with all the important occassions! Start creating your first note by clicking on the 'Add' button"
+            }
           />
         )}
       </div>
