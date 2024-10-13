@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { MdAdd } from "react-icons/md";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
+import EmptyCard from "../../components/Cards/EmptyCard";
 import NoteCard from "../../components/Cards/NoteCard";
 import Navbar from "../../components/Navbar/Navbar";
 import Toast from "../../components/ToastMessage/Toast";
 import axiosInstance from "../../utils/axiosInstance";
 import AddEditNotes from "./AddEditNotes";
+
 const Home = () => {
   const [openAddEditModal, setOpenAddEditModal] = useState({
     isShown: false,
@@ -105,21 +107,28 @@ const Home = () => {
       <Navbar userInfo={userInfo} />
 
       <div className="container mx-auto ">
-        <div className="grid grid-cols-4 gap-4 mt-8">
-          {allNotes.map((item, index) => (
-            <NoteCard
-              key={item._id}
-              title={item.title}
-              date={item.createdOn}
-              content={item.content}
-              tags={item.tags}
-              isPinned={item.isPinned}
-              onEdit={() => handleEdit(item)}
-              onDelete={() => deleteNote(item)}
-              onPinNote={() => {}}
-            />
-          ))}
-        </div>
+        {allNotes.length > 0 ? (
+          <div className="grid grid-cols-4 gap-4 mt-8">
+            {allNotes.map((item, index) => (
+              <NoteCard
+                key={item._id}
+                title={item.title}
+                date={item.createdOn}
+                content={item.content}
+                tags={item.tags}
+                isPinned={item.isPinned}
+                onEdit={() => handleEdit(item)}
+                onDelete={() => deleteNote(item)}
+                onPinNote={() => {}}
+              />
+            ))}
+          </div>
+        ) : (
+          <EmptyCard
+            imgSrc="/addnote.png"
+            message="Keep in track with all the important occassions! Start creating your first note by clicking on the 'Add' button"
+          />
+        )}
       </div>
 
       <button
