@@ -71,16 +71,17 @@ const Home = () => {
     }
   };
 
-  // //Delete all notes
-  // const deleteNotes = async (data) => {
-  //   const noteId = data._id;
-
+  // //Delete note
+  // const handleDelete = async (noteId) => {
   //   try {
-  //     const response = await axiosInstance.delete("/delete-note/" + noteId);
+  //     const response = await axiosInstance.delete(`/delete-note/${noteId}`);
 
   //     if (response.data && response.data.note) {
   //       showToastMessage("Note Deleted Successfully", "delete");
-  //       getAllNotes();
+
+  //       setAllNotes((prevNotes) =>
+  //         prevNotes.filter((note) => note._id !== noteId)
+  //       );
   //     }
   //   } catch (error) {
   //     if (
@@ -93,41 +94,20 @@ const Home = () => {
   //   }
   // };
 
-  // const deleteNotes = async (data) => {
-  //   const noteId = data._id;
-
-  //   try {
-  //     const response = await axiosInstance.delete("/delete-note/" + noteId);
-
-  //     if (response.data && response.data.note) {
-  //       showToastMessage("Note Deleted Successfully", "delete");
-  //       getAllNotes();
-  //     }
-  //   } catch (error) {
-  //     if (
-  //       error.response &&
-  //       error.response.data &&
-  //       error.response.data.message
-  //     ) {
-  //       console.log("An unexpected error occurred. Please try again", error);
-  //     }
-  //   }
-  // };
-
-  const deleteNotes = async (data) => {
+  const deleteNote = async (data) => {
     const noteId = data._id;
 
     try {
       const response = await axiosInstance.delete("/delete-note/" + noteId);
 
-      if (response.data && response.data.note) {
-        // Show the success toast message
-        showToastMessage("Note Deleted Successfully", "delete");
+      if (response.data && !response.data.error) {
+        showToastMessage("Note Deleted Successfully");
+        getAllNotes();
 
         // Update the allNotes state by filtering out the deleted note
-        setAllNotes((prevNotes) =>
-          prevNotes.filter((note) => note._id !== noteId)
-        );
+        // setAllNotes((prevNotes) =>
+        //   prevNotes.filter((note) => note._id !== noteId)
+        // );
       }
     } catch (error) {
       if (
@@ -151,8 +131,8 @@ const Home = () => {
     <>
       <Navbar userInfo={userInfo} />
 
-      <div className="container mx-auto">
-        <div className="grid grid-cols-3 gap-4 mt-8">
+      <div className="container mx-auto ">
+        <div className="grid grid-cols-4 gap-4 mt-8">
           {allNotes.map((item, index) => (
             <NoteCard
               key={item._id}
@@ -162,7 +142,7 @@ const Home = () => {
               tags={item.tags}
               isPinned={item.isPinned}
               onEdit={() => handleEdit(item)}
-              onDelete={() => deleteNotes(item)}
+              onDelete={() => deleteNote(item)}
               onPinNote={() => {}}
             />
           ))}
