@@ -7,7 +7,7 @@ const SearchBar = ({ value, onChange, handleSearch, onClearSearch }) => {
     <div className="flex items-center px-4 rounded-md w-80 bg-slate-100">
       <input
         type="text"
-        placeholder="Seaarch Notes"
+        placeholder="Search Notes"
         className="w-full text-xs bg-transparent py-[11px] outline-none"
         value={value}
         onChange={onChange}
@@ -19,7 +19,10 @@ const SearchBar = ({ value, onChange, handleSearch, onClearSearch }) => {
           onClick={onClearSearch}
         />
       )}
-      <FaMagnifyingGlass className="cursor-pointer text-slate-400 hover:text-black" />
+      <FaMagnifyingGlass
+        className="cursor-pointer text-slate-400 hover:text-black"
+        onClick={handleSearch}
+      />
     </div>
   );
 };
